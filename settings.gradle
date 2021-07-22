@@ -1,0 +1,2 @@
+rootProject.name = "lks_jabar"
+include ':app'
