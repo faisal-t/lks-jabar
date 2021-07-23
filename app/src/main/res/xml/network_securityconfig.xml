@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">116.193.191.179</domain>
+        <domain includeSubdomains="true">http://116.193.191.179:3000</domain>
     </domain-config>
 </network-security-config>

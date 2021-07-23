@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">lks_jabar</string>
+
+    <string name="url_login">http://116.193.191.179:3000/login</string>
+    <string name="url_register">http://116.193.191.179:3000/register</string>
+    <string name="url_get_all_menu">http://116.193.191.179:3000/menu</string>
+    <string name="url_get_detail_menu">http://116.193.191.179:3000/menu/</string>
+    <string name="url_post_menu">http://116.193.191.179:3000/menu</string>
+    <string name="url_delete_menu">http://116.193.191.179:3000/menu/</string>
+    <string name="url_update_menu">http://116.193.191.179:3000/menu/</string>
+
 </resources>
