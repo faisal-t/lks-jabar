@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import java.net.HttpURLConnection
 import java.net.URL
@@ -20,6 +21,10 @@ class PostUpdateActivity : AppCompatActivity() {
         val edtName = findViewById<TextInputEditText>(R.id.edt_post_name)
         val edtDescription = findViewById<TextInputEditText>(R.id.edt_post_description)
         val edtPrice = findViewById<TextInputEditText>(R.id.edt_post_price)
+
+        edtName.setText(intent.getStringExtra("name") ?: null)
+        edtDescription.setText(intent.getStringExtra("description") ?: null)
+        edtPrice.setText(intent.getStringExtra("price") ?: null)
 
         val idMenu = intent.getStringExtra("id") ?: null
         val jenis = intent.getStringExtra("jenis") ?: null
@@ -45,32 +50,45 @@ class PostUpdateActivity : AppCompatActivity() {
                             flush()
 
                         }
-                        val result = inputStream.bufferedReader().readText()
+                        
+                        if (responseCode == 200){
+                            val result = inputStream.bufferedReader().readText()
 
-                        // Fungsi Jika Berhasil
-                        runOnUiThread {
-                            Log.d("data", result)
-                            val intent = Intent(this@PostUpdateActivity, ActivityMenu::class.java)
-                            intent.putExtra("status","berhasil tambah Menu")
-                            startActivity(intent)
+                            // Fungsi Jika Berhasil
+                            runOnUiThread {
+                                Log.d("data", result)
+                                val intent = Intent(this@PostUpdateActivity, ActivityMenu::class.java)
+                                intent.putExtra("status","berhasil tambah Menu")
+                                startActivity(intent)
+                            }
                         }
+                        
+                        else{
+                            runOnUiThread{
+                                Toast.makeText(this@PostUpdateActivity, "Error Harap Hubungi admin", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                        
+                        
                     }
                 }
             }
         }
         else{
+            val idMenu = intent.getStringExtra("id")
             btnAddPost.setOnClickListener {
                 val url = URL("http://116.193.191.179:3000/menu/$idMenu")
 
                 thread {
                     with(url.openConnection() as HttpURLConnection) {
+
                         val name = edtName.text.toString()
                         val desc = edtDescription.text.toString()
                         val price = edtPrice.text.toString()
 
 
-                        doOutput = true
-                        doInput = true
+
                         requestMethod = "PUT"
                         addRequestProperty("Content-Type", "application/x-www-form-urlencoded")
                         addRequestProperty("Authorization", MainActivity.token.toString())

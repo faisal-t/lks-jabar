@@ -15,6 +15,7 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/txt_menu_id"
             android:textColor="#626972"
             android:textStyle="bold"
